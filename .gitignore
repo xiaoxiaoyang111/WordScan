@@ -3,6 +3,7 @@ node_modules/
 
 # 测试产物
 test/img*.jpg
+test/big*.jpg
 test/output*.png
 test/.env
 
@@ -14,4 +15,5 @@ test/.env
 Thumbs.db
 
 # 小程序工具缓存
-.cache/project.private.config.json
+.cache/
+project.private.config.json

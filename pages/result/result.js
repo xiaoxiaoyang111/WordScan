@@ -73,19 +73,19 @@ Page({
         const x2 = ox + (it.bbox[2] / 1000) * dw
         const y2 = oy + (it.bbox[3] / 1000) * dh
 
-        const thickness = Math.max(3, (y2 - y1) * 0.08)
+        const thickness = Math.max(2, (y2 - y1) * 0.035)
         ctx.strokeStyle = g.color
         ctx.lineWidth = thickness
         ctx.lineCap = 'round'
         ctx.beginPath()
-        ctx.moveTo(x1, y2 + thickness)
-        ctx.lineTo(x2, y2 + thickness)
+        ctx.moveTo(x1, y2 + 2)
+        ctx.lineTo(x2, y2 + 2)
         ctx.stroke()
 
-        const r = thickness * 0.8
+        const r = Math.max(2, thickness * 0.9)
         ctx.fillStyle = g.color
         ctx.beginPath()
-        ctx.arc(x2 + r, y2 + thickness, r, 0, Math.PI * 2)
+        ctx.arc(x2 + r, y2 + 2, r, 0, Math.PI * 2)
         ctx.fill()
       })
     })
@@ -100,10 +100,38 @@ Page({
       await this.drawAnnotated(0, imgA, this.resultData.img1Size)
       await this.drawAnnotated(1, imgB, this.resultData.img2Size)
       this.setData({ canvasReady: true })
+      this.exportPreviewPaths()
     } catch (e) {
       console.error(e)
       wx.showToast({ title: '标注绘制失败', icon: 'none' })
     }
+  },
+
+  exportPreviewPaths () {
+    const exportOne = (idx) => new Promise((resolve) => {
+      wx.canvasToTempFilePath({
+        canvas: this.canvasInfo[idx].node,
+        fileType: 'jpg',
+        quality: 0.92,
+        success: (r) => resolve(r.tempFilePath),
+        fail: () => resolve('')
+      })
+    })
+    Promise.all([exportOne(0), exportOne(1)]).then((paths) => {
+      this.previewPaths = paths
+    })
+  },
+
+  previewImage (e) {
+    const idx = Number(e.currentTarget.dataset.idx) || 0
+    if (!this.previewPaths || !this.previewPaths[idx]) {
+      wx.showToast({ title: '图片生成中，请稍候', icon: 'none' })
+      return
+    }
+    wx.previewImage({
+      current: this.previewPaths[idx],
+      urls: this.previewPaths.filter(Boolean)
+    })
   },
 
   saveResult () {

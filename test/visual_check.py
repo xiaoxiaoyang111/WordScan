@@ -28,10 +28,10 @@ def render(img_path, out_path, boxes):
     for text, color, bbox in boxes:
         x1 = bbox[0]/1000*W; y1 = bbox[1]/1000*H
         x2 = bbox[2]/1000*W; y2 = bbox[3]/1000*H
-        t = max(3, (y2-y1)*0.08)
-        d.line([(x1, y2+t), (x2, y2+t)], fill=color, width=max(2, int(t)))
-        r_ = t*0.8
-        d.ellipse([x2, y2+t-r_, x2+2*r_, y2+t+r_], fill=color)
+        t = max(2, (y2-y1)*0.035)
+        d.line([(x1, y2+2), (x2, y2+2)], fill=color, width=max(1, int(t)))
+        r_ = max(2, t*0.9)
+        d.ellipse([x2+r_-r_, y2+2-r_, x2+2*r_+r_, y2+2+r_], fill=color)
     img.save(out_path)
     print(f"  {out_path} 已生成")
 

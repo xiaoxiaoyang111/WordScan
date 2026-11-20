@@ -13,13 +13,19 @@
     </view>
   </view>
 
-  <view class="canvas-wrap" wx:if="{{img1}}">
-    <view class="canvas-title">图片一</view>
+  <view class="canvas-wrap" wx:if="{{img1}}" bindtap="previewImage" data-idx="0">
+    <view class="canvas-title-row">
+      <view class="canvas-title">图片一</view>
+      <view class="zoom-hint">🔍 点击查看大图</view>
+    </view>
     <canvas type="2d" id="canvas1" class="annotated-canvas"></canvas>
   </view>
 
-  <view class="canvas-wrap" wx:if="{{img2}}">
-    <view class="canvas-title">图片二</view>
+  <view class="canvas-wrap" wx:if="{{img2}}" bindtap="previewImage" data-idx="1">
+    <view class="canvas-title-row">
+      <view class="canvas-title">图片二</view>
+      <view class="zoom-hint">🔍 点击查看大图</view>
+    </view>
     <canvas type="2d" id="canvas2" class="annotated-canvas"></canvas>
   </view>
 

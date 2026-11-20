@@ -67,6 +67,7 @@ function callDeepSeek (apiKey, imageBase64List) {
         ],
         response_format: { type: 'json_object' },
         temperature: 0,
+        effort: 'low',
         max_tokens: 16384
       },
       success: (res) => {

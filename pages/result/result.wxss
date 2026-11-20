@@ -76,11 +76,22 @@
   margin-bottom: 24rpx;
 }
 
+.canvas-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
 .canvas-title {
   font-size: 26rpx;
   font-weight: 600;
   color: #6B7280;
-  margin-bottom: 16rpx;
+}
+
+.zoom-hint {
+  font-size: 22rpx;
+  color: #4F46E5;
 }
 
 .annotated-canvas {
