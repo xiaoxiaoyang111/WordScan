@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="tip">拍摄或选择两张含英文单词的照片，AI 将自动标注出两张图片中相同或同义的单词</view>
+
+  <view class="images">
+    <view class="img-card {{img1 ? 'filled' : ''}}" bindtap="chooseImage" data-slot="1">
+      <block wx:if="{{img1}}">
+        <image class="preview" src="{{img1}}" mode="aspectFill" catchtap="chooseImage" data-slot="1"/>
+        <view class="remove" catchtap="removeImage" data-slot="1">×</view>
+        <view class="slot-tag">图片一</view>
+      </block>
+      <block wx:else>
+        <view class="placeholder">
+          <view class="plus">＋</view>
+          <view class="hint">拍摄 / 相册</view>
+          <view class="hint sub">图片一</view>
+        </view>
+      </block>
+    </view>
+
+    <view class="vs" wx:if="{{img1 && img2}}">VS</view>
+
+    <view class="img-card {{img2 ? 'filled' : ''}}" bindtap="chooseImage" data-slot="2">
+      <block wx:if="{{img2}}">
+        <image class="preview" src="{{img2}}" mode="aspectFill" catchtap="chooseImage" data-slot="2"/>
+        <view class="remove" catchtap="removeImage" data-slot="2">×</view>
+        <view class="slot-tag">图片二</view>
+      </block>
+      <block wx:else>
+        <view class="placeholder">
+          <view class="plus">＋</view>
+          <view class="hint">拍摄 / 相册</view>
+          <view class="hint sub">图片二</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="key-section">
+    <view class="section-title">DeepSeek API Key</view>
+    <view class="key-row">
+      <input class="key-input" type="text" password value="{{apiKey}}" placeholder="sk-…（仅保存在本机）"
+        placeholder-class="ph" bindinput="onKeyInput" />
+      <button class="mini-btn {{hasSavedKey ? 'saved' : ''}}" size="mini" bindtap="saveKey">
+        {{hasSavedKey ? '已保存' : '保存'}}
+      </button>
+      <button class="mini-btn danger" size="mini" wx:if="{{hasSavedKey}}" bindtap="clearKey">清除</button>
+    </view>
+    <view class="key-note">Key 只存储在本机 Storage，不会上传到任何服务器（直连 DeepSeek 官方 API）</view>
+  </view>
+
+  <button class="compare-btn {{img1 && img2 && !loading ? 'ready' : ''}}" bindtap="startCompare" disabled="{{loading}}">
+    {{loading ? loadingText : '开始对比'}}
+  </button>
+
+  <view class="loading-mask" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <view class="loading-text">{{loadingText}}</view>
+  </view>
+</view>

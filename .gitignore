@@ -1,0 +1,17 @@
+# 依赖
+node_modules/
+
+# 测试产物
+test/img*.jpg
+test/output*.png
+test/.env
+
+# 日志
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 小程序工具缓存
+.cache/project.private.config.json

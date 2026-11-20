@@ -1,0 +1,27 @@
+<view class="crop-page">
+  <view class="tip">拖动四角调整选区，拖动选区内部可移动，确认后截取该区域</view>
+
+  <view class="stage" id="stage">
+    <image class="stage-img" src="{{path}}" mode="aspectFit" bindload="onImgLoad"/>
+    <view class="sel" wx:if="{{ready}}"
+      style="left: {{sel.x}}px; top: {{sel.y}}px; width: {{sel.w}}px; height: {{sel.h}}px;"
+      catchtouchstart="onMoveStart" catchtouchmove="onMove" catchtouchend="onMoveEnd">
+      <view class="grid-v g1"></view>
+      <view class="grid-v g2"></view>
+      <view class="grid-h g1"></view>
+      <view class="grid-h g2"></view>
+      <view class="corner lt" data-corner="lt" catchtouchstart="onCornerStart" catchtouchmove="onCornerMove" catchtouchend="onCornerEnd"></view>
+      <view class="corner rt" data-corner="rt" catchtouchstart="onCornerStart" catchtouchmove="onCornerMove" catchtouchend="onCornerEnd"></view>
+      <view class="corner lb" data-corner="lb" catchtouchstart="onCornerStart" catchtouchmove="onCornerMove" catchtouchend="onCornerEnd"></view>
+      <view class="corner rb" data-corner="rb" catchtouchstart="onCornerStart" catchtouchmove="onCornerMove" catchtouchend="onCornerEnd"></view>
+    </view>
+  </view>
+
+  <view class="btns">
+    <button class="btn ghost" bindtap="resetSel">全选</button>
+    <button class="btn ghost" bindtap="cancel">取消</button>
+    <button class="btn primary" bindtap="confirm">确认裁剪</button>
+  </view>
+
+  <canvas type="2d" id="cropCanvas" class="hidden-canvas"></canvas>
+</view>

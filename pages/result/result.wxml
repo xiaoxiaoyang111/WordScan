@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="summary">
+    共找到 <text class="count">{{groups.length}}</text> 组相同/同义单词
+  </view>
+
+  <view class="legend" wx:if="{{groups.length > 0}}">
+    <view class="legend-item" wx:for="{{groups}}" wx:key="index">
+      <view class="legend-line" style="background: {{item.color}}"></view>
+      <view class="legend-words">
+        <text wx:for="{{item.words}}" wx:for-item="w" wx:key="*this" class="legend-word">{{w}}</text>
+        <text class="legend-relation">{{relationLabelMap[item.relation] || '同义'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="canvas-wrap" wx:if="{{img1}}">
+    <view class="canvas-title">图片一</view>
+    <canvas type="2d" id="canvas1" class="annotated-canvas"></canvas>
+  </view>
+
+  <view class="canvas-wrap" wx:if="{{img2}}">
+    <view class="canvas-title">图片二</view>
+    <canvas type="2d" id="canvas2" class="annotated-canvas"></canvas>
+  </view>
+
+  <view class="empty" wx:if="{{groups.length === 0 && canvasReady}}">
+    <view class="empty-icon">🤔</view>
+    <view class="empty-text">两张图片中没有找到相同或同义的单词</view>
+  </view>
+
+  <view class="btns">
+    <button class="btn primary" bindtap="saveResult" disabled="{{!canvasReady || groups.length === 0}}">保存标注图到相册</button>
+    <button class="btn ghost" bindtap="backHome">返回重选</button>
+  </view>
+</view>
